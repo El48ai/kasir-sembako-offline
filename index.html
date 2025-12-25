@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kasir PRO Offline</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b5cff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage" class="card">
+<h2>Login Kasir</h2>
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p class="hint">admin / admin123</p>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+<header>
+<h1>🛒 Kasir PRO</h1>
+<button onclick="logout()">Keluar</button>
+</header>
+
+<section id="adminPanel" class="card hidden">
+<h3>Tambah Kasir</h3>
+<input id="newUser" placeholder="Username">
+<input id="newPass" placeholder="Password">
+<button onclick="addUser()">Tambah Kasir</button>
+</section>
+
+<section class="card">
+<h3>Tambah Produk</h3>
+<input id="pBarcode" placeholder="Barcode">
+<input id="pName" placeholder="Nama Produk">
+<input id="pPrice" type="number" placeholder="Harga">
+<input id="pStock" type="number" placeholder="Stok">
+<button onclick="addProduct()">Tambah</button>
+</section>
+
+<section class="card">
+<button onclick="startCamera()">📷 Scan Barcode Kamera</button>
+<input id="scanInput" placeholder="Scan barcode (scanner)" onchange="scanBarcode(this.value)">
+</section>
+
+<section class="card">
+<h3>Produk</h3>
+<ul id="productList"></ul>
+</section>
+
+<section class="card">
+<h3>Keranjang</h3>
+<ul id="cartList"></ul>
+<h3>Total: Rp <span id="total">0</span></h3>
+<button onclick="checkout()">Bayar & Cetak</button>
+<button onclick="exportExcel()">Export Excel</button>
+<button onclick="backupData()">Backup Data</button>
+<input type="file" onchange="restoreData(this.files[0])">
+</section>
+
+<section id="camera" class="card hidden">
+<video id="cameraView"></video>
+<button onclick="stopCamera()">Tutup Kamera</button>
+</section>
+
+</div>
+
+<script src="libs/quagga.min.js"></script>
+<script src="libs/xlsx.full.min.js"></script>
+<script src="barcode-camera.js"></script>
+<script src="app.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("sw.js");
+}
+</script>
+</body>
+</html>
